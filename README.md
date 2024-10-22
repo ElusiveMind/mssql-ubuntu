@@ -7,5 +7,5 @@ These are done using Ubuntu 24.04 as a base operating system.
 
 This is a companion repository to [mssql2mysql](https://github.com/ElusiveMind/mssql2mysql) that can be used as a backbone to transfer data and schema from a MSSQL database to MySQL/MariaDB.
 
-More information can be found on how this works can be found at [this blog post](ßhttps://www.flyingflip.com/article/converting-mssql-databases-to-mysql-using-php)
+More information can be found on how this works can be found at [this blog post](https://www.flyingflip.com/article/converting-mssql-databases-to-mysql-using-php)
 

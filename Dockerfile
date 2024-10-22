@@ -38,7 +38,6 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/t
   curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list |  tee /etc/apt/sources.list.d/mssql-release.list && \
   apt update -y && \
   ACCEPT_EULA=Y apt install -y mssql-server mssql-tools unixodbc-dev msodbcsql18 && \
-  apt search msodbcsql18 && \
   wget https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community_8.0.38-1ubuntu24.04_amd64.deb && \
   apt-get install -y \
     libatk1.0-0t64 \

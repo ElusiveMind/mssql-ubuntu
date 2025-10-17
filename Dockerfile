@@ -34,8 +34,8 @@ RUN apt-get update && apt-get -y upgrade && DEBIAN_FRONTEND=noninteractive apt-g
 
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc && \
   curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg &&  \
-  curl -fsSL https://packages.microsoft.com/config/ubuntu/22.04/mssql-server-2022.list |  tee /etc/apt/sources.list.d/mssql-server-2022.list && \
-  curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list |  tee /etc/apt/sources.list.d/mssql-release.list && \
+  curl -fsSL https://packages.microsoft.com/config/ubuntu/24.04/mssql-server-2025.list |  tee /etc/apt/sources.list.d/mssql-server-2025.list && \
+  curl https://packages.microsoft.com/config/ubuntu/24.04/prod.list |  tee /etc/apt/sources.list.d/mssql-release.list && \
   apt update -y && \
   ACCEPT_EULA=Y apt install -y mssql-server mssql-tools unixodbc-dev msodbcsql18 && \
   wget https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community_8.0.38-1ubuntu24.04_amd64.deb && \

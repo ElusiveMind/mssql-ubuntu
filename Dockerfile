@@ -12,51 +12,34 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/mssql
 
 RUN apt-get update && apt-get -y upgrade && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   build-essential \
-  git \
   gnupg \
   libnss3 \
   nano \
   netcat-openbsd \
-  ntp \
   software-properties-common \
   sudo \
   vim \
   wget \
   zip \
   mariadb-client \
-  mariadb-server \
   curl \
   net-tools \
   gettext \
-  rsync \
-  unzip \
-  zlib1g 
+  unzip
 
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc && \
-  curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg &&  \
-  curl -fsSL https://packages.microsoft.com/config/ubuntu/24.04/mssql-server-2025.list |  tee /etc/apt/sources.list.d/mssql-server-2025.list && \
-  curl https://packages.microsoft.com/config/ubuntu/24.04/prod.list |  tee /etc/apt/sources.list.d/mssql-release.list && \
-  apt update -y && \
-  ACCEPT_EULA=Y apt install -y mssql-server mssql-tools unixodbc-dev msodbcsql18 && \
-  wget https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community_8.0.38-1ubuntu24.04_amd64.deb && \
-  apt-get install -y \
-    libatk1.0-0t64 \
-    libatkmm-1.6-1v5 \
-    libcairo2 \
-    libgdk-pixbuf-2.0-0 \
-    libglibmm-2.4-1t64 \
-    libglx0 \
-    libgtk-3-0t64 \
-    libgtk2.0-0t6 \
-    libgtkmm-3.0-1t6 \
-    libopengl0 \
-    libpango-1.0-0 \
-    libpangocairo-1.0-0 \
-    libproj25 \
-    libsecret-1-0 \
-    libsigc++-2.0-0v5 \
-    libzip4t64 && \
-    DEBIAN_FRONTEND=noninteractive dpkg -i mysql-workbench-community_8.0.38-1ubuntu24.04_amd64.deb
+RUN curl -sSL -O https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb && \
+  curl -fsSL https://packages.microsoft.com/config/ubuntu/22.04/mssql-server-2022.list |  tee /etc/apt/sources.list.d/mssql-server-2022.list && \
+  dpkg -i packages-microsoft-prod.deb && \
+  rm packages-microsoft-prod.deb && \
+  apt-get update && \
+  apt search msodb && \
+  apt search mssql && \
+  ACCEPT_EULA=Y apt-get install -y msodbcsql18 && \
+  ACCEPT_EULA=Y apt-get install -y mssql-tools18 && \
+  wget http://ftp.us.debian.org/debian/pool/main/o/openldap/libldap-2.5-0_2.5.13+dfsg-5_amd64.deb && \
+  dpkg -i libldap-2.5-0_2.5.13+dfsg-5_amd64.deb && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y mssql-server && \
+  apt-get install -y unixodbc-dev sqlcmd
 
 # Add ondrej/php PPA repository for PHP.
 RUN add-apt-repository ppa:ondrej/php && \
